@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Button Example</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+</head>
+<body>
+    <h1>Starlight ERBC Church</h1>
+    <h2>Current Slide</h2>
+    <img src={{ image }} alt="Current slide image" width="400">
+
+    <form action="/" method="post">
+        <button type="submit" name="slide" value="previous"> <i class="mdi mdi-arrow-left"></i></button>
+        <button type="submit" name="slide" value="next"> <i class="mdi mdi-arrow-right"></i></button>
+    </form>
+
+    <h2>Livestream</h2>
+    {% if livestream %}
+        <p style="color: green;">The livestream is currently on</p>
+    {% else %}
+        <p style="color: red;">The livestream is currently off</p>
+    {% endif %}
+
+    <p>{{ valid_settings }}</p>
+
+    <form action="/livestream" method="post">
+        <button type="submit" name="action" value="toggle">Toggle Recording<i class="mdi mdi-record-rec"></i></button>
+    </form>
+    <form action="/" method="get">
+        <button>Go Back</button>
+    </form>
+  
+    <h2>Macros</h2>
+    {% for macro in macros %}
+    <form action="/macro" method="post">
+        <button type="submit" name="action" value="{{ macro }}">{{ macro }}</button>
+    </form>
+    {% endfor %}
+
+    <h2>{{ presentation }}</h2>
+    {% for otherimage in otherimages %}
+    {% if otherimage == image %}
+        <img src={{ otherimage }} alt="Current slide image" width="200" style="border: 10px solid black;">
+    {% else %}
+        <img src={{ otherimage }} alt="Current slide image" width="200">
+    {% endif %}
+    {% endfor %}
+
+</body>
+</html>
